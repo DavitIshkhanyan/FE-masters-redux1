@@ -1,25 +1,42 @@
-import logo from './logo.svg';
 import './App.css';
+import useCompose from "./useCompose";
+import {createStore} from "redux";
+// import use
 
 function App() {
-  return (
+    // useCompose();
+
+    const initialState = { value: 0 };
+
+    const INCREMENT = "INCREMENT";
+    const ADD = "ADD";
+
+    const incrementAction = { type: INCREMENT };
+
+    const increment = () => ({ type: INCREMENT });
+    const add = (amount) => ({ type: ADD, payload: amount });
+
+    const reducer = (state, action) => {
+        if (action.type === INCREMENT) {
+            return { value: state.value + 1 };
+        }
+
+        if (action.type === ADD) {
+            return { value: state.value + state.payload}
+        }
+
+        return state;
+    };
+
+    const store = createStore(reducer);
+
+    console.log(store)
+
+    return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        123
     </div>
-  );
+);
 }
 
 export default App;
