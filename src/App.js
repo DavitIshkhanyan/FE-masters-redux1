@@ -1,7 +1,8 @@
+//    To 00:46:49
+
 import './App.css';
 import useCompose from "./useCompose";
-import {createStore} from "redux";
-// import use
+import {bindActionCreators, compose, createStore} from "redux";
 
 function App() {
     // useCompose();
@@ -22,7 +23,7 @@ function App() {
         }
 
         if (action.type === ADD) {
-            return { value: state.value + state.payload}
+            return { value: state.value + action.payload}
         }
 
         return state;
@@ -30,9 +31,22 @@ function App() {
 
     const store = createStore(reducer);
 
-    store.dispatch(increment());
+    const subscriber = () => {console.log("SUBSCRIBER", store.getState())};
 
-    console.log(store.getState());
+    store.subscribe(subscriber);
+
+    const actions = bindActionCreators({ increment, add }, store.dispatch);
+
+    const [dispatchIncrement, dispatchAdd] = [increment, add].map((fn) => compose(store.dispatch, fn));  // bindActionCreators implementation
+
+    actions.add(1000);
+    actions.increment();
+
+    // store.dispatch(increment());
+    // store.dispatch(increment());
+    // store.dispatch(add(1000));
+
+    // console.log(store.getState());
 
     // console.log(store);
 
