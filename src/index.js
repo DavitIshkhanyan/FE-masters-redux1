@@ -2,13 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import App1 from './App1';
+import CombineReducer from './combineReducer';
+import Middleware from './middleware';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
-    <App1 />
+    <Middleware />
   // </React.StrictMode>
 );
 
